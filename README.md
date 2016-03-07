@@ -1,15 +1,60 @@
 # Arduino-MOS
 A ultra lightweight cooperative multitasking schema for Arduino devices. Tested on UNO, DUE and ESP8266 devices.
 
+
 ## History
 2016-03-07  V0.1  Initial Version 
 
+
 ## Documentation
+**Yet another lightweight multitasking kernel for Arduino ...  :-)**
+
+But MOS is different. It consists of only a view macros and thus needs per se **zero memory** (Flash and RAM)!
+But it allows multi-tasking with blocking, cooperative tasks in pure C (GCC is required)
+
+
+### API Functions
+**MOS_Break(tcb)**
+
+Give up for a task with higher priority. If no other task is in the state 'READY',
+the task will be reactivated immediately.
+
+
+**MOS_Continue(tcb)**
+
+Continue task execution at the previous interrupted position.
+
+
+**MOS_Delay(tcb, time)**
+
+Give up for the given amount of milliseconds.
+
+
+**MOS_Suspend(tcb)**
+
+Suspend the task. Only a MOS_Resume will aktivate the task again.
+
+
+**MOS_Resume(tcb)**
+
+Reactivate a suspended task referenced by the given 'tcb'.
+
+
+**MOS_Reset(tcb)**
+
+Restart a task at the beginning.
+
+
+**MOS_Call(task, tcb, time, obj)**
+
+If the task is in the state 'READY' (not suspended and not in waiting state),
+call the given task and then return from loop().
 
 
 ## Example
+
 I have added two sketches "small" and "medium" to show the usage of MOS.
-You can find these in the examples folder. Here is the "small" example blinking with the LED:
+You can find these in the examples folder. Here is the "small" example, blinking with the LED:
 
 ```
 #include <MOS.h>
