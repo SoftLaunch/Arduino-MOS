@@ -17,41 +17,15 @@ Of course you could do the same with state machines but with MOS your code looks
 
 ### API Functions
 
-**MOS_Break(tcb)**
-
-Give up the CPU for a task with higher priority. If no other task is in the state 'READY',
-the task will be reactivated immediately.
-
-
-**MOS_Continue(tcb)**
-
-Continue the task execution at the previous interrupted position.
-
-
-**MOS_Delay(tcb, time)**
-
-Give up for the given amount of milliseconds.
-
-
-**MOS_Suspend(tcb)**
-
-Suspend the task. Only a MOS_Resume will activate the task again.
-
-
-**MOS_Resume(tcb)**
-
-Reactivate a suspended task referenced by the given 'tcb'.
-
-
-**MOS_Reset(tcb)**
-
-Restart a task at the beginning.
-
-
-**MOS_Call(task, tcb, time, obj)**
-
-If the task is in the state 'READY' (not suspended and not in waiting state),
-call the given task and then return from loop().
+Function | Description ('tcb' is the reference to the TaskControlBlock of the related task)
+--------|------------
+MOS_Break(tcb) | Give up the CPU for a task with higher priority. If no other task is in the state 'READY', the task will be reactivated immediately
+MOS_Continue(tcb) | Continue the task execution at the previous interrupted position
+MOS_Delay(tcb, time) | Give up for the given amount of milliseconds
+MOS_Suspend(tcb) | Suspend the task. Only a MOS_Resume will activate the task again
+MOS_Resume(tcb) | Reactivate a suspended task referenced by the given 'tcb'
+MOS_Reset(tcb) | Restart a task at the beginning
+MOS_Call(task, tcb, time, obj) | If the task is in the state 'READY' (not suspended and not in waiting state), call the given task and then return from loop()
 
 
 ## Example
