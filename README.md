@@ -1,5 +1,5 @@
 # Arduino-MOS
-A ultra lightweight cooperative multitasking schema for Arduino devices. Tested on Arduino UNO, DUE and ESP8266. 
+[Arduino-MOS](https://github.com/joe7575/Arduino-MOS), a ultra lightweight cooperative multitasking schema for Arduino devices. Tested on Arduino UNO, DUE and ESP8266. 
 
 
 ## History
@@ -17,7 +17,7 @@ Of course you could do the same with state machines but with MOS your code looks
 
 ### API Functions
 
-Function | Description ('tcb' is the reference to the TaskControlBlock of the related task)
+Function | Description
 --------|------------
 MOS_Break(tcb) | Give up the CPU for a task with higher priority. If no other task is in the state 'READY', the task will be reactivated immediately
 MOS_Continue(tcb) | Continue the task execution at the previous interrupted position
@@ -27,6 +27,7 @@ MOS_Resume(tcb) | Reactivate a suspended task referenced by the given 'tcb'
 MOS_Reset(tcb) | Restart a task at the beginning
 MOS_Call(task, tcb, time, obj) | If the task is in the state 'READY' (not suspended and not in waiting state), call the given task and then return from loop()
 
+* 'tcb' is the reference to the TaskControlBlock of the related task.
 
 ## Example
 
