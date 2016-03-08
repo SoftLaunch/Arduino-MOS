@@ -24,20 +24,17 @@ typedef struct{
 DemoTaskVar_t DemoTaskVar;
 
 
-void setup()
-{
+void setup() {
   pinMode(13, OUTPUT);
   Serial.begin(115600);
 }
 
 
-void LedTask(MOS_TCB_t *p_tcb, void *p_var)
-{
+void LedTask(MOS_TCB_t *p_tcb, void *p_var) {
   (void)p_var;                // to prevent compiler warnings
   MOS_Continue(p_tcb);        // continue at previous interrupted position
 
-  while(1)
-  {
+  while(1) {
     digitalWrite(13, HIGH);
     MOS_Delay(p_tcb, 100);   // interrupt for the given time
 
@@ -47,13 +44,11 @@ void LedTask(MOS_TCB_t *p_tcb, void *p_var)
 }
 
 
-void DemoTask(MOS_TCB_t *p_tcb, DemoTaskVar_t *p_var)
-{
+void DemoTask(MOS_TCB_t *p_tcb, DemoTaskVar_t *p_var) {
   MOS_Continue(p_tcb);        // continue at previous interrupted position
 
   p_var->cnt = 0;             // Reset task data once
-  while(1)
-  {
+  while(1) {
     Serial.print("DemoTask ");
     Serial.println(p_var->cnt);
     p_var->cnt++;
@@ -62,8 +57,7 @@ void DemoTask(MOS_TCB_t *p_tcb, DemoTaskVar_t *p_var)
 }
 
 
-void loop()
-{
+void loop() {
   uint32_t time = millis();
   MOS_Call(LedTask,  &LedTaskTcb,  time, NULL);
   MOS_Call(DemoTask, &DemoTaskTcb, time, &DemoTaskVar);

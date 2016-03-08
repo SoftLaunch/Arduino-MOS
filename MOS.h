@@ -50,7 +50,7 @@ typedef struct{
 #define MOS_Delay(tcb, time)  (tcb)->u32_time = millis() + time; MOS_Break(tcb)
 
 /*
- * Suspend task. Only a MOS_Resume will aktivate the task again.
+ * Suspend task. Only a MOS_Resume will activate the task again.
  */
 #define MOS_Suspend(tcb)      (tcb)->stopped = 1; (tcb)->u32_time = 0; MOS_Break(tcb)
 
@@ -67,8 +67,8 @@ typedef struct{
 /* If the task is in the state 'READY' (not suspended and not in waiting state),
  * call the given task and then return from loop().
  */
-#define MOS_Call(task, tcb, time, obj) \
+#define MOS_Call(task, tcb, time, var) \
                               if((!(tcb)->stopped) && ((tcb)->u32_time < time)) \
-                              { task((tcb), obj); return; }
+                              { task((tcb), var); return; }
 
 #endif //MOS_H
