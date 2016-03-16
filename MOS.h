@@ -2,7 +2,7 @@
  * MOS - Macro based Operating System
  * A ultra lightweight cooperative multitasking schema for Arduino devices
  *
- * V0.1 - 2016-03-07
+ * V0.2 - 2016-03-16
  *
  * Copyright (c) 2016 Joachim Stolberg.  All rights reserved.
  * This file is free software; you can redistribute it and/or
@@ -21,14 +21,15 @@
 // internal macros
 #define MOS_MERGE_(a,b)       a##b
 #define MOS_LABEL_(line)      MOS_MERGE_(LBL, line)
+#define MOS_TIME_OVER(t)      ((uint16_t)(millis() - (t)) < 0x8000U)
 
 // Task Control Block
 typedef struct{
   void      *pv_jmp;          // next continue position
-  uint32_t  u32_time;         // delay in msec
-  boolean   stopped;          // stopped flag
+  uint16_t  u16_time;         // delay in msec
 }MOS_TCB_t;
 
+typedef MOS_TCB_t* PTCB;
 
 /*
  * API "Functions"
@@ -47,28 +48,13 @@ typedef struct{
 /*
  * Give up for the given amount of milliseconds.
  */
-#define MOS_Delay(tcb, time)  (tcb)->u32_time = millis() + time; MOS_Break(tcb)
+#define MOS_Delay(tcb, time)  (tcb)->u16_time = millis() + time; MOS_Break(tcb)
 
-/*
- * Suspend task. Only a MOS_Resume will activate the task again.
+/* 
+ * If the task is not in waiting state (via MOS_Delay), call the task.
  */
-#define MOS_Suspend(tcb)      (tcb)->stopped = 1; (tcb)->u32_time = 0; MOS_Break(tcb)
-
-/*
- * Reactivate a suspended task referenced by the given 'tcb'.
- */
-#define MOS_Resume(tcb)       (tcb)->stopped = 0;
-
-/*
- * Restart a task at the beginning.
- */
-#define MOS_Reset(tcb)        (tcb)->pv_jmp = NULL; (tcb)->u32_time = 0; (tcb)->stopped = 0
-
-/* If the task is in the state 'READY' (not suspended and not in waiting state),
- * call the given task and then return from loop().
- */
-#define MOS_Call(task, tcb, time, var) \
-                              if((!(tcb)->stopped) && ((tcb)->u32_time < time)) \
-                              { task((tcb), var); return; }
-
+#define MOS_Call(task)  	  static MOS_TCB_t MOS_MERGE_(task, tcb); \
+							  if(MOS_TIME_OVER(MOS_MERGE_(task, tcb).u16_time)) \
+                              task((&MOS_MERGE_(task, tcb)))
+                              
 #endif //MOS_H
