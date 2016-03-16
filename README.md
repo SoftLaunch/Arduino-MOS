@@ -3,8 +3,8 @@
 
 
 ## History
-2016-03-07  V0.1  Initial Version
-2016-03-16  V0.2  Simplified Version
+- 2016-03-07  V0.1  Initial Version
+- 2016-03-16  V0.2  Simplified Version
 
 
 ## Documentation
