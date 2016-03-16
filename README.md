@@ -20,7 +20,7 @@ Of course you could do the same with state machines but with MOS your code looks
 
 Function | Description
 --------|------------
-MOS_Break(tcb) | Give up the CPU for a task with higher priority. If no other task is in the state 'READY', the task will be reactivated immediately
+MOS_Break(tcb) | Interrupt task execution for one loop. If no other task is in the state 'READY', the task will be reactivated immediately
 MOS_Continue(tcb) | Continue the task execution at the previous interrupted position
 MOS_Delay(tcb, time) | Give up for the given amount of milliseconds
 MOS_Call(task) | If the task is not waiting (via MOS_Delay), the task will be called
