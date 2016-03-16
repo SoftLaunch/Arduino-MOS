@@ -35,7 +35,7 @@ typedef MOS_TCB_t* PTCB;
  * API "Functions"
  */
 
-/* Give up for a task with higher priority. If no other task is in the state 'READY',
+/* Interrupt task execution for one loop. If no other task is in the state 'READY',
  * the task will be reactivated immediately.
  */
 #define MOS_Break(tcb)        (tcb)->pv_jmp = &&MOS_LABEL_(__LINE__); return; MOS_LABEL_(__LINE__):
