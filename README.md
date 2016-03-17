@@ -5,6 +5,7 @@
 ## History
 - 2016-03-07  V0.1  Initial Version
 - 2016-03-16  V0.2  Simplified Version
+- 2016-03-17  V0.3  Medium demo added
 
 
 ## Documentation
@@ -22,7 +23,7 @@ Function | Description
 --------|------------
 MOS_Break(tcb) | Interrupt task execution for one loop. If no other task is in the state 'READY', the task will be reactivated immediately
 MOS_Continue(tcb) | Continue the task execution at the previous interrupted position
-MOS_Delay(tcb, time) | Give up for the given amount of milliseconds
+MOS_Delay(tcb, time) | Give up for the given amount of milliseconds (1..2^31)
 MOS_Call(task) | If the task is not waiting (via MOS_Delay), the task will be called
 
 

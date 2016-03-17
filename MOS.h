@@ -2,7 +2,7 @@
  * MOS - Macro based Operating System
  * A ultra lightweight cooperative multitasking schema for Arduino devices
  *
- * V0.2 - 2016-03-16
+ * V0.3 - 2016-03-17
  *
  * Copyright (c) 2016 Joachim Stolberg.  All rights reserved.
  * This file is free software; you can redistribute it and/or
@@ -21,12 +21,12 @@
 // internal macros
 #define MOS_MERGE_(a,b)       a##b
 #define MOS_LABEL_(line)      MOS_MERGE_(LBL, line)
-#define MOS_TIME_OVER(t)      ((uint16_t)(millis() - (t)) < 0x8000U)
+#define MOS_TIME_OVER(t)      ((uint32_t)(millis() - (t)) < 0x80000000UL)
 
 // Task Control Block
 typedef struct{
   void      *pv_jmp;          // next continue position
-  uint16_t  u16_time;         // delay in msec
+  uint32_t  u32_time;         // delay in msec
 }MOS_TCB_t;
 
 typedef MOS_TCB_t* PTCB;
@@ -46,15 +46,15 @@ typedef MOS_TCB_t* PTCB;
 #define MOS_Continue(tcb)     if((tcb)->pv_jmp != NULL) goto *(tcb)->pv_jmp
 
 /*
- * Give up for the given amount of milliseconds.
+ * Give up for the given amount of milliseconds (1..2^31).
  */
-#define MOS_Delay(tcb, time)  (tcb)->u16_time = millis() + time; MOS_Break(tcb)
+#define MOS_Delay(tcb, time)  (tcb)->u32_time = millis() + time; MOS_Break(tcb)
 
 /* 
  * If the task is not in waiting state (via MOS_Delay), call the task.
  */
 #define MOS_Call(task)  	  static MOS_TCB_t MOS_MERGE_(task, tcb); \
-							  if(MOS_TIME_OVER(MOS_MERGE_(task, tcb).u16_time)) \
+							  if(MOS_TIME_OVER(MOS_MERGE_(task, tcb).u32_time)) \
                               task((&MOS_MERGE_(task, tcb)))
                               
 #endif //MOS_H
