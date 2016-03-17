@@ -1,5 +1,5 @@
 # Arduino-MOS
-[Arduino-MOS](https://github.com/joe7575/Arduino-MOS), a ultra lightweight cooperative multitasking schema for Arduino devices. Tested on Arduino UNO, DUE, ATtiny85, and ESP8266. 
+[Arduino-MOS](https://github.com/joe7575/Arduino-MOS), a ultra lightweight cooperative multitasking scheduler for Arduino devices. Tested on Arduino UNO, DUE, ATtiny85, and ESP8266. 
 
 
 ## History
@@ -12,8 +12,8 @@
 **Yet another lightweight multitasking kernel for Arduino ...  :-)**
 
 But MOS is different. MOS stands for Macro based Operating System. 
-It consists of only a view macros and thus needs per se **zero memory** (Flash and RAM)!
-But it allows multitasking with blocking, cooperative tasks in pure C (GCC is required).
+It consists of only a few macros and can therefore be used on all Arduino devices.
+It allows multitasking with blocking, cooperative tasks, but does not require additional memory.
 Of course you could do the same with state machines but with MOS your code looks nicer and is easier to understand.
 
 
