@@ -92,7 +92,7 @@ To use the MOS macros successful, some rules have to be fulfilled:
 * Implement each task as endless-loop ```while(1) {...}```
 * Start each task with ```MOS_Continue(ptcb)```
 * Use ```MOS_Break(ptcb)``` and ```MOS_Delay(ptcb, time)``` to interrupt your task
-  
+* Local variables lose their value with each call of MOS_Break/MOS_Delay. Therefore, use static or global variables inside tasks
 
 ## Questions/Feedback
 Questions about this project should be posted to joe.stolberg(at)gmx(dot)de
