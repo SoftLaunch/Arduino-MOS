@@ -2,7 +2,7 @@
  * MOS - Macro based Operating System
  * A ultra lightweight cooperative multitasking scheduler for Arduino devices
  *
- * V0.4 - 2016-03-25
+ * V0.4 - 2016-03-26
  *
  * Copyright (c) 2016 Joachim Stolberg.  All rights reserved.
  * This file is free software; you can redistribute it and/or

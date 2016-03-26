@@ -18,13 +18,6 @@ int  count = 0;
 uint16_t delayVal = 20;
 
 
-void setup() 
-{
-  pinMode(13, OUTPUT);
-  Serial.begin(115600);
-}
-
-
 void LedTask(PTCB ptcb) 
 {
   MOS_Continue(ptcb);                   // Continue at previous suspended position      
@@ -83,9 +76,20 @@ void ControlTask(PTCB ptcb)
 }
 
 
+void setup() 
+{
+  pinMode(13, OUTPUT);
+  Serial.begin(115600);
+  Serial.println("### MOS Medium Demo ###");
+  Serial.println("");
+}
+
+
 void loop() 
 {
   MOS_Call(LedTask);
   MOS_Call(RatioTask);
   MOS_Call(ControlTask);
 }
+
+

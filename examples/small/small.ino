@@ -14,12 +14,6 @@
 
 int cnt = 0;
 
-void setup() 
-{
-  pinMode(13, OUTPUT);
-  Serial.begin(115600);
-}
-
 
 void LedTask(PTCB ptcb) 
 {
@@ -50,8 +44,19 @@ void DemoTask(PTCB ptcb)
 }
 
 
+void setup() 
+{
+  pinMode(13, OUTPUT);
+  Serial.begin(115600);
+  Serial.println("### MOS Small Demo ###");
+  Serial.println("");
+}
+
+
 void loop() 
 {
   MOS_Call(LedTask);
   MOS_Call(DemoTask);
 }
+
+
