@@ -6,6 +6,7 @@
 - 2016-03-07  V0.1  Initial Version
 - 2016-03-16  V0.2  Simplified Version
 - 2016-03-17  V0.3  Medium demo added
+- 2016-03-25  V0.4  MOS_WaitFor() / MOS_Signal() added
 
 
 ## Documentation
@@ -21,10 +22,12 @@ Of course you could do the same with state machines but with MOS your code looks
 
 Function | Description
 --------|------------
-MOS_Break(tcb) | Interrupt task execution for one loop. If no other task is in the state 'READY', the task will be reactivated immediately
-MOS_Continue(tcb) | Continue the task execution at the previous interrupted position
-MOS_Delay(tcb, time) | Give up for the given amount of milliseconds (1..2^31)
-MOS_Call(task) | If the task is not waiting (via MOS_Delay), the task will be called
+MOS_Break(tcb) | Suspend task execution. The task will be resumed with the next call of the loop function
+MOS_Continue(tcb) | Continue the task execution at the previous suspended program position
+MOS_Delay(tcb, time) | Suspend task for the given amount of milliseconds (1..2^31)
+MOS_WaitFor(ptcb, flag) | Suspend task until the task is resumed by means of MOS_Signal()
+MOS_Signal(flag) | Resume the suspended task waiting on the given flag
+MOS_Call(task) | If the task is not waiting (via MOS_Delay/MOS_WaitFor), the task will be called and resumed on the previous suspended program position
 
 
 ## Example
@@ -46,29 +49,29 @@ void setup()
 
 void LedTask(PTCB ptcb) 
 {
-  MOS_Continue(ptcb);        // continue at previous interrupted position
+  MOS_Continue(ptcb);        // continue at previous suspended program position
 
   while(1) 
   {
     digitalWrite(13, HIGH);
-    MOS_Delay(ptcb, 100);   // interrupt for the given time
+    MOS_Delay(ptcb, 100);   // Suspend task for the given time
 
     digitalWrite(13, LOW);
-    MOS_Delay(ptcb, 100);   // interrupt for the given time
+    MOS_Delay(ptcb, 100);   // Suspend task for the given time
   }
 }
 
 
 void DemoTask(PTCB ptcb) 
 {
-  MOS_Continue(ptcb);        // continue at previous interrupted position
+  MOS_Continue(ptcb);        // continue at previous suspended program position
 
   while(1) 
   {
     Serial.print("DemoTask ");
     Serial.println(cnt);
     cnt++;
-    MOS_Delay(ptcb, 500);   // interrupt for the given time
+    MOS_Delay(ptcb, 500);   // Suspend task for the given time
   }
 }
 
@@ -91,8 +94,8 @@ into the Arduino 'libraries' folder.
 To use the MOS macros successful, some rules have to be fulfilled:
 * Implement each task as endless-loop ```while(1) {...}```
 * Start each task with ```MOS_Continue(ptcb)```
-* Use ```MOS_Break(ptcb)``` and ```MOS_Delay(ptcb, time)``` to interrupt your task
-* Local variables lose their value with each call of MOS_Break/MOS_Delay. Therefore, use static or global variables inside tasks
+* Use ```MOS_Break(ptcb)```, ```MOS_WaitFor(ptcb, flag)```, and ```MOS_Delay(ptcb, time)``` to suspend your task
+* Local variables lose their value with each call of MOS_Break/MOS_Delay/MOS_WaitFor. Therefore, use static or global variables inside tasks
 
 ## Questions/Feedback
 Questions about this project should be posted to joe.stolberg(at)gmx(dot)de

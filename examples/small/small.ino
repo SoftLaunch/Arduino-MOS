@@ -23,29 +23,29 @@ void setup()
 
 void LedTask(PTCB ptcb) 
 {
-  MOS_Continue(ptcb);        // continue at previous interrupted position
+  MOS_Continue(ptcb);         // Continue at previous suspended program position
 
   while(1) 
   {
     digitalWrite(13, HIGH);
-    MOS_Delay(ptcb, 100);   // interrupt for the given time
+    MOS_Delay(ptcb, 100);     // Suspend task for the given time
 
     digitalWrite(13, LOW);
-    MOS_Delay(ptcb, 100);   // interrupt for the given time
+    MOS_Delay(ptcb, 100);     // Suspend task for the given time
   }
 }
 
 
 void DemoTask(PTCB ptcb) 
 {
-  MOS_Continue(ptcb);        // continue at previous interrupted position
+  MOS_Continue(ptcb);         // Continue at previous suspended program position
 
   while(1) 
   {
     Serial.print("DemoTask ");
     Serial.println(cnt);
     cnt++;
-    MOS_Delay(ptcb, 500);   // interrupt for the given time
+    MOS_Delay(ptcb, 500);     // Suspend task for the given time
   }
 }
 

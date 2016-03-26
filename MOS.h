@@ -1,8 +1,8 @@
 /*
  * MOS - Macro based Operating System
- * A ultra lightweight cooperative multitasking schema for Arduino devices
+ * A ultra lightweight cooperative multitasking scheduler for Arduino devices
  *
- * V0.3 - 2016-03-17
+ * V0.4 - 2016-03-25
  *
  * Copyright (c) 2016 Joachim Stolberg.  All rights reserved.
  * This file is free software; you can redistribute it and/or
@@ -22,6 +22,9 @@
 #define MOS_MERGE_(a,b)       a##b
 #define MOS_LABEL_(line)      MOS_MERGE_(LBL, line)
 #define MOS_TIME_OVER(t)      ((uint32_t)(millis() - (t)) < 0x80000000UL)
+#define MOS_BREAK(tcb)        { (tcb)->pv_jmp = &&MOS_LABEL_(__LINE__);   \
+                              return; }                                   \
+                              MOS_LABEL_(__LINE__):
 
 // Task Control Block
 typedef struct{
@@ -35,26 +38,40 @@ typedef MOS_TCB_t* PTCB;
  * API "Functions"
  */
 
-/* Interrupt task execution for one loop. If no other task is in the state 'READY',
- * the task will be reactivated immediately.
+/* Suspend task execution. The task will be resumed with the next 
+ * call of the loop function.
  */
-#define MOS_Break(tcb)        (tcb)->pv_jmp = &&MOS_LABEL_(__LINE__); return; MOS_LABEL_(__LINE__):
+#define MOS_Break(tcb)        { (tcb)->u32_time = millis(); MOS_BREAK(tcb); }
 
 /*
- * Continue task execution at the previous interrupted position.
+ * Continue the task execution at the previous suspended program position.
  */
-#define MOS_Continue(tcb)     if((tcb)->pv_jmp != NULL) goto *(tcb)->pv_jmp
+#define MOS_Continue(tcb)     { if((tcb)->pv_jmp != NULL) goto *(tcb)->pv_jmp; }
 
 /*
- * Give up for the given amount of milliseconds (1..2^31).
+ *  Suspend task for the given amount of milliseconds (1..2^31).
  */
-#define MOS_Delay(tcb, time)  (tcb)->u32_time = millis() + time; MOS_Break(tcb)
+#define MOS_Delay(tcb, time)  { (tcb)->u32_time = millis() + time; MOS_BREAK(tcb); }
+
+/*
+ * Suspend task until the task is resumed by means of MOS_Signal().
+ */
+#define MOS_WaitFor(ptcb, flag)       { flag = false; while(flag == false) \
+                                      { MOS_BREAK(ptcb); }}
+
+                                   
+/*
+ * Resume the suspended task waiting on the given flag.
+ */
+#define MOS_Signal(flag)              { flag = true; }
+
 
 /* 
- * If the task is not in waiting state (via MOS_Delay), call the task.
+ * If the task is not waiting (via MOS_Delay/MOS_WaitFor), the task 
+ * will be called and resumed on the previous suspended program position.
  */
-#define MOS_Call(task)  	  static MOS_TCB_t MOS_MERGE_(task, tcb); \
-							  if(MOS_TIME_OVER(MOS_MERGE_(task, tcb).u32_time)) \
-                              task((&MOS_MERGE_(task, tcb)))
+#define MOS_Call(task)        { static MOS_TCB_t MOS_MERGE_(task, tcb);   \
+                              if(MOS_TIME_OVER(MOS_MERGE_(task, tcb).u32_time)) \
+                                  task((&MOS_MERGE_(task, tcb))); }
                               
 #endif //MOS_H

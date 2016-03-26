@@ -27,34 +27,34 @@ void setup()
 
 void LedTask(PTCB ptcb) 
 {
-  MOS_Continue(ptcb);                   // continue at previous interrupted position      
+  MOS_Continue(ptcb);                   // Continue at previous suspended position      
   
   while(1) 
   {
     digitalWrite(13, HIGH);
-    MOS_Delay(ptcb, ratio);             // interrupt task for the given time      
+    MOS_Delay(ptcb, ratio);             // Suspend task for the given time      
 
     digitalWrite(13, LOW);
-    MOS_Delay(ptcb, 5-ratio);           // interrupt task for the given time  
+    MOS_Delay(ptcb, 5-ratio);           // Suspend task for the given time  
   }
 }
 
 
 void RatioTask(PTCB ptcb) 
 {
-  MOS_Continue(ptcb);                   // continue at previous interrupted position       
+  MOS_Continue(ptcb);                   // Continue at previous suspended position       
   
   while(1) 
   {
     for(count=0; count<=5; count++)
     {
       ratio = count;
-      MOS_Delay(ptcb, delayVal);        // interrupt task for the given time 
+      MOS_Delay(ptcb, delayVal);        // Suspend task for the given time 
     }
     for(count=5; count>=0; count--)
     {
       ratio = count;
-      MOS_Delay(ptcb, delayVal);        // interrupt task for the given time  
+      MOS_Delay(ptcb, delayVal);        // Suspend task for the given time  
     }
   }
 }
@@ -62,7 +62,7 @@ void RatioTask(PTCB ptcb)
 
 void ControlTask(PTCB ptcb) 
 {
-  MOS_Continue(ptcb);                   // continue at previous interrupted position
+  MOS_Continue(ptcb);                   // Continue at previous suspended position
         
   Serial.println("Input LED dimming frequency (1 - 5):");
 
@@ -78,7 +78,7 @@ void ControlTask(PTCB ptcb)
         Serial.println(" ms");
       }
     }
-    MOS_Break(ptcb);                    // interrupt task for one loop cycle
+    MOS_Break(ptcb);                    // Suspend task for one loop cycle
   }
 }
 
