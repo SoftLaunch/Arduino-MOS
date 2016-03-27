@@ -15,24 +15,24 @@
 uint32_t ticks = 0;
 
 
-void LedTask(PTCB ptcb) 
+void LedTask(PTCB tcb) 
 {
-  MOS_Continue(ptcb);         // Continue at previous suspended program position
+  MOS_Continue(tcb);            // Continue at previous suspended program position
 
   while(1) 
   {
     digitalWrite(13, HIGH);
-    MOS_Delay(ptcb, 500);     // Suspend task for the given time
+    MOS_Delay(tcb, 500);        // Suspend task for the given time
 
     digitalWrite(13, LOW);
-    MOS_Delay(ptcb, 500);     // Suspend task for the given time
+    MOS_Delay(tcb, 500);        // Suspend task for the given time
   }
 }
 
 
-void TimerTask(PTCB ptcb) 
+void TimerTask(PTCB tcb) 
 {
-  MOS_Continue(ptcb);           // Continue at previous suspended program position
+  MOS_Continue(tcb);            // Continue at previous suspended program position
 
   while(1) 
   {
@@ -44,7 +44,7 @@ void TimerTask(PTCB ptcb)
     }
     Serial.println(ticks % 60); // seconds
     ticks++;
-    MOS_DelaySec(ptcb, 1);      // Suspend task for the given time
+    MOS_DelaySec(tcb, 1);       // Suspend task for the given time
   }
 }
 

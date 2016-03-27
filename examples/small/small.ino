@@ -15,31 +15,31 @@
 int cnt = 0;
 
 
-void LedTask(PTCB ptcb) 
+void LedTask(PTCB tcb) 
 {
-  MOS_Continue(ptcb);         // Continue at previous suspended program position
+  MOS_Continue(tcb);            // Continue at previous suspended program position
 
   while(1) 
   {
     digitalWrite(13, HIGH);
-    MOS_Delay(ptcb, 100);     // Suspend task for the given time
+    MOS_Delay(tcb, 100);        // Suspend task for the given time
 
     digitalWrite(13, LOW);
-    MOS_Delay(ptcb, 100);     // Suspend task for the given time
+    MOS_Delay(tcb, 100);        // Suspend task for the given time
   }
 }
 
 
-void DemoTask(PTCB ptcb) 
+void DemoTask(PTCB tcb) 
 {
-  MOS_Continue(ptcb);         // Continue at previous suspended program position
+  MOS_Continue(tcb);            // Continue at previous suspended program position
 
   while(1) 
   {
     Serial.print("DemoTask ");
     Serial.println(cnt);
     cnt++;
-    MOS_Delay(ptcb, 500);     // Suspend task for the given time
+    MOS_Delay(tcb, 500);        // Suspend task for the given time
   }
 }
 
@@ -48,7 +48,7 @@ void setup()
 {
   pinMode(13, OUTPUT);
   Serial.begin(115600);
-  Serial.println("### MOS Small Demo ###");
+  Serial.println(F("### MOS Small Demo ###"));
   Serial.println("");
 }
 

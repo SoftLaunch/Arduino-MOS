@@ -7,7 +7,7 @@
  *    If pressed, the LedTask will be reactivated.
  *
  * To simulate a button, use two Dupont Wire (jumper cable), 
- * one for pin 7 and one for GND.
+ * one for pin 2 and one for GND.
  * 
  * The demo shows the use of the functions MOS_WaitFor() / MOS_Signal()
  * 
@@ -19,33 +19,38 @@
 #include <MOS.h>
 
 
-#define BUTTON_PIN            7     // Used pin for the button
-#define NUM_SAMPLES           3     // number of necessary debounce samples (1..4)
+#define BUTTON_PIN            2       // Used pin for the button
+#define NUM_SAMPLES           3       // number of necessary debounce samples (1..4)
 
 
-bool LedTaskSignal;                 // Flag to control the LedTask
+bool LedTaskSignal;                   // Flag to control the LedTask
 
 
 /*
  * Toggles LED 13 for 4 seconds and suspends
  */
-void LedTask(PTCB ptcb) 
+void LedTask(PTCB tcb) 
 {
   static uint16_t idx;
   
-  MOS_Continue(ptcb);       // Continue at previous suspended position      
+  MOS_Continue(tcb);                    // Continue at previous suspended position      
   
   while(1) 
   {
     for(idx = 0; idx < 10; idx++)
     {
       digitalWrite(13, HIGH);
-      MOS_Delay(ptcb, 200);             // Suspend task for the given time      
+      MOS_Delay(tcb, 200);              // Suspend task for the given time      
 
       digitalWrite(13, LOW);
-      MOS_Delay(ptcb, 200);             // Suspend task for the given time
+      MOS_Delay(tcb, 200);              // Suspend task for the given time
     }
-    MOS_WaitFor(ptcb, LedTaskSignal);   // Suspend task for an external event
+                                        // Suspend task (maximum 5 sec) for an external event
+    MOS_WaitTimedFor(tcb, LedTaskSignal, 5000);
+    if(!LedTaskSignal)                  // Signal not occurred?
+    {
+      Serial.println(F("Timout occurred"));
+    }
   }
 }
 
@@ -75,11 +80,11 @@ bool debounce_filter()
 /*
  * Read button pin cyclically and resume LedTask if pressed
  */
-void ButtonTask(PTCB ptcb)
+void ButtonTask(PTCB tcb)
 {
   static uint16_t counter = 0;
   
-  MOS_Continue(ptcb);                   // Continue at previous suspended position       
+  MOS_Continue(tcb);                    // Continue at previous suspended position       
 
   pinMode(BUTTON_PIN, INPUT);           // switch to input
   digitalWrite(BUTTON_PIN, HIGH);       // activate pull-up resistor
@@ -94,11 +99,11 @@ void ButtonTask(PTCB ptcb)
       Serial.println(F(" times"));
       
       MOS_Signal(LedTaskSignal);        // resume LedTask
-      MOS_Delay(ptcb, 200);             // Input lock time
+      MOS_Delay(tcb, 200);              // Input lock time
     }
     else
     {
-      MOS_Delay(ptcb, 10);              // normal poll cycle time
+      MOS_Delay(tcb, 10);                // normal poll cycle time
     }
   }
 }
@@ -108,7 +113,7 @@ void setup()
 {
   pinMode(13, OUTPUT);
   Serial.begin(115600);
-  Serial.println("### MOS Button Demo ###");
+  Serial.println(F("### MOS Button Demo ###"));
   Serial.println("");
 }
 
