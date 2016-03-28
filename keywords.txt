@@ -1,0 +1,28 @@
+#######################################
+# Syntax Coloring Map For Arduino-MOS
+#######################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+PTCB	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+MOS_Break 	KEYWORD2
+MOS_Continue 	KEYWORD2
+MOS_Delay 	KEYWORD2
+MOS_DelaySec 	KEYWORD2
+MOS_WaitFor 	KEYWORD2
+MOS_WaitTimedFor 	KEYWORD2
+MOS_Signal 	KEYWORD2
+MOS_ResetTask 	KEYWORD2
+MOS_Call	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
