@@ -8,6 +8,7 @@
 - 2016-03-17  V0.3  Medium demo added
 - 2016-03-26  V0.4  MOS_WaitFor() / MOS_Signal() added, button demo added
 - 2016-03-27  V0.5  MOS_WaitTimedFor() added, timer demo added
+- 2016-03-28  V0.6  MOS_ResetTask() added
 
 
 ## Documentation
@@ -30,6 +31,7 @@ MOS_DelaySec(tcb, sec) | Suspend task for the given amount of seconds (1..30000)
 MOS_WaitFor(tcb, flag) | Suspend task until the task is resumed by means of MOS_Signal()
 MOS_WaitTimedFor(tcb, flag, msec) | Suspend task until the task is resumed by means of MOS_Signal() or by means of the given timeout in milliseconds (1..30000)
 MOS_Signal(flag) | Resume the suspended task waiting on the given flag
+MOS_ResetTask(tcb) | Reset the calling task so that it starts from the beginning
 MOS_Call(task) | Execute the given task
 
 

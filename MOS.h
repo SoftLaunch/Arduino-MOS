@@ -2,7 +2,7 @@
  * MOS - Macro based Operating System
  * A ultra lightweight cooperative multitasking scheduler for Arduino devices.
  *
- * V0.5 - 2016-03-27
+ * V0.6 - 2016-03-28
  *
  * Copyright (c) 2016 Joachim Stolberg.  All rights reserved.
  * This file is free software; you can redistribute it and/or
@@ -86,6 +86,11 @@ typedef MOS_TCB_t* PTCB;
  */
 #define MOS_Signal(flag)          { flag = true; }
 
+
+/*
+ * Reset the calling task so that it starts from the beginning.
+ */
+#define MOS_ResetTask(tcb)        { (tcb)->pv_jmp = NULL; return; }
 
 /*
  * Execute the given task.
