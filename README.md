@@ -92,8 +92,9 @@ void loop()
 There are no limitation, as far as you use the GCC compiler. So you can use any Arduino device. 
 
 ## Installation
-Download and extract the ZIP file, rename the folder "Arduino-MOS-master" into 'MOS' and copy the 'MOS' folder 
-into the Arduino 'libraries' folder.
+Download the ZIP file and install it with the Library Manager.
+[How to install Additional Arduino Libraries](https://www.arduino.cc/en/Guide/Libraries)
+
 
 ## Hints
 To use the MOS macros successful, some rules have to be fulfilled:
