@@ -37,10 +37,10 @@ MOS_Call(task) | Execute the given task
 
 ## Example
 
-I have added the sketch "small" to show the usage of MOS.
+Several sketches to demonstrate the features of MOS are available.
 You can find these in the examples folder. Here is the "small" example, blinking with the LED:
 
-```
+```C++
 #include <MOS.h>
 
 int cnt = 0;
@@ -105,6 +105,19 @@ To use the MOS macros successful, some rules have to be fulfilled:
 ## Questions/Feedback
 Questions about this project should be posted to joe.stolberg(at)gmx(dot)de
 
+## License
+Arduino-MOS is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+Arduino-MOS is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
 
 
 
