@@ -1,4 +1,19 @@
 /*
+ * MOS Button Demo
+ *
+ * Demo with 2 tasks:
+ *  - the LedTask blinks with LED 13 and suspends after 4 seconds.
+ *  - the ButtonTask cyclically reads a digital input to detect a "pressed button".
+ *    If pressed, the LedTask will be reactivated.
+ *
+ * The demo shows the use of the functions MOS_WaitFor() / MOS_Signal()
+ * 
+ * To simulate a button, use two Dupont Wire (jumper cable), 
+ * one for pin 2 and one for GND.
+ * 
+ * Copyright (c) 2016 Joachim Stolberg. All rights reserved.
+ *
+ *
  * This file is part of Arduino-MOS.
  *
  * Arduino-MOS is free software: you can redistribute it and/or modify
@@ -12,22 +27,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
- *
- * 
- * MOS Button Demo
- *
- * Demo with 2 tasks:
- *  - the LedTask blinks with LED 13 and suspends after 4 seconds.
- *  - the ButtonTask cyclically reads a digital input to detect a "pressed button".
- *    If pressed, the LedTask will be reactivated.
- *
- * The demo shows the use of the functions MOS_WaitFor() / MOS_Signal()
- * 
- * To simulate a button, use two Dupont Wire (jumper cable), 
- * one for pin 2 and one for GND.
- * 
- * Created 2016-03-26 by Joachim Stolberg
+ * along with Arduino-MOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <MOS.h>

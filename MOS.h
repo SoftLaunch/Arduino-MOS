@@ -4,6 +4,9 @@
  *
  * V0.6 - 2016-03-28
  *
+ * Copyright (c) 2016 Joachim Stolberg. All rights reserved.
+ *
+ *
  * This file is part of Arduino-MOS.
  *
  * Arduino-MOS is free software: you can redistribute it and/or modify
@@ -17,7 +20,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
+ * along with Arduino-MOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #ifndef MOS_H

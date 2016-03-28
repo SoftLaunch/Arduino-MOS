@@ -1,4 +1,14 @@
 /*
+ * MOS Medium Demo
+ *
+ * Demo with 3 tasks:
+ *  - the LedTask blinks with LED 13 with variable LED on/off ratio (dimming)
+ *  - the RatioTask changes the LED dimming ratio
+ *  - the ControlTask controls the dimming frequency
+ *
+ * Copyright (c) 2016 Joachim Stolberg. All rights reserved.
+ *
+ *
  * This file is part of Arduino-MOS.
  *
  * Arduino-MOS is free software: you can redistribute it and/or modify
@@ -12,17 +22,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
- *
- * 
- * MOS Medium Demo
- *
- * Demo with 3 tasks:
- *  - the LedTask blinks with LED 13 with variable LED on/off ratio (dimming)
- *  - the RatioTask changes the LED dimming ratio
- *  - the ControlTask controls the dimming frequency
- *
- * Created 2016-03-17 by Joachim Stolberg
+ * along with Arduino-MOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <MOS.h>

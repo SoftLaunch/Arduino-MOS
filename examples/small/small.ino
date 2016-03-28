@@ -1,6 +1,13 @@
 /*
  * MOS Small Demo
  *
+ * Demo with 2 tasks:
+ *  - LedTask blinks with LED 13
+ *  - DemoTask outputs some data cyclically on the Serial Monitor
+ *
+ * Copyright (c) 2016 Joachim Stolberg. All rights reserved.
+ *
+ *
  * This file is part of Arduino-MOS.
  *
  * Arduino-MOS is free software: you can redistribute it and/or modify
@@ -14,14 +21,7 @@
  * GNU General Public License for more details.
  *
  * You should have received a copy of the GNU General Public License
- * along with Foobar.  If not, see <http://www.gnu.org/licenses/>.
- *
- * 
- * Demo with 2 tasks:
- *  - LedTask blinks with LED 13
- *  - DemoTask outputs some data cyclically on the Serial Monitor
- *
- * Created 2016-03-16 by Joachim Stolberg
+ * along with Arduino-MOS.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 #include <MOS.h>
