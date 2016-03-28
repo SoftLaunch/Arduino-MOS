@@ -21,7 +21,16 @@
  *
  * You should have received a copy of the GNU General Public License
  * along with Arduino-MOS.  If not, see <http://www.gnu.org/licenses/>.
- */
+ *
+ * References / Inspired by:
+ * [1] "Coroutines in C" by Simon Tatham (2000)
+ *     http://www.chiark.greenend.org.uk/~sgtatham/coroutines.html
+ * [2] "Coroutinen in C" by Joachim Stolberg (2004)
+ *     http://web.archive.org/web/20070704161820/http://www.jstolberg.de/...
+ *                              JoesCms/data/Programming/CoroutinenInC.php
+ * [3] Labels as Values - Using the GNU Compiler Collection (GCC)
+ *     https://gcc.gnu.org/onlinedocs/gcc/Labels-as-Values.html
+  */
 
 #ifndef MOS_H
 #define MOS_H
