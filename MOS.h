@@ -337,7 +337,7 @@ typedef MOS_TCB_t* PTCB;
     }
 */
 #define MOS_WaitForCond(tcb, condition)                                                              \
-                                    { while((cond) == false)                                    \
+                                    { while((condition) == false)                                    \
                                     { MOS_BREAK(tcb); } }
 
 /*******************************************************************************

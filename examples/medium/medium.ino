@@ -75,17 +75,14 @@ void ControlTask(PTCB tcb)
 
   while(1) 
   {
-    if(Serial.available())
+    MOS_WaitForCond(tcb, Serial.available());
+    char c = Serial.read();
+    if((c >= '1') && (c <= '5'))
     {
-      char c = Serial.read();
-      if((c >= '1') && (c <= '5'))
-      {
-        delayVal = (c - '0') * 20;
-        Serial.print(delayVal);
-        Serial.println(" ms");
-      }
+      delayVal = (c - '0') * 20;
+      Serial.print(delayVal);
+      Serial.println(" ms");
     }
-    MOS_Break(tcb);                     // Suspend task for one loop cycle
   }
 }
 

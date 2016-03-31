@@ -20,20 +20,22 @@ It consists of only a few macros and can therefore be used on all Arduino device
 It allows multitasking with blocking, cooperative tasks, but does not require additional memory.
 Of course you could do the same with state machines but with MOS your code looks nicer and is easier to understand.
 
+See [MOS API Documentation](mos_api_docu.md#mos-api-documentation)
+and [How it works](mos_api_docu.md#how-it-works).
 
 ### API Functions
 
- - [MOS_Break(tcb)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_break)
+ - [MOS_Break(tcb)](mos_api_docu.md#mos_break)
  - [MOS_Continue(tcb)](mos_api_docu.md#mos_continue)
- - [MOS_Delay(tcb, msec)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_delay)
- - [MOS_DelaySec(tcb, sec)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_delaysec)
- - [MOS_WaitFor(tcb, flag)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_waitfor)
- - [MOS_WaitTimedFor(tcb, flag, msec)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_waittimedfor)
- - [MOS_WaitForCond(tcb cond)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_waitforcond)
- - [MOS_WaitTimedForCond(tcb, cond, time)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_waittimedforcond)
- - [MOS_Signal(flag)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_signal)
- - [MOS_ResetTask(tcb)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_resettask)
- - [MOS_Call(task)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_call)
+ - [MOS_Delay(tcb, msec)](mos_api_docu.md#mos_delay)
+ - [MOS_DelaySec(tcb, sec)](mos_api_docu.md#mos_delaysec)
+ - [MOS_WaitFor(tcb, flag)](mos_api_docu.md#mos_waitfor)
+ - [MOS_WaitTimedFor(tcb, flag, msec)](mos_api_docu.md#mos_waittimedfor)
+ - [MOS_WaitForCond(tcb cond)](mos_api_docu.md#mos_waitforcond)
+ - [MOS_WaitTimedForCond(tcb, cond, time)](mos_api_docu.md#mos_waittimedforcond)
+ - [MOS_Signal(flag)](mos_api_docu.md#mos_signal)
+ - [MOS_ResetTask(tcb)](mos_api_docu.md#mos_resettask)
+ - [MOS_Call(task)](mos_api_docu.md#mos_call)
 
 
 ## Example
