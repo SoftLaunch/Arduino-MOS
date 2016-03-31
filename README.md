@@ -9,6 +9,7 @@
 - 2016-03-26  V0.4  MOS_WaitFor() / MOS_Signal() added, button demo added
 - 2016-03-27  V0.5  MOS_WaitTimedFor() added, timer demo added
 - 2016-03-28  V0.6  MOS_ResetTask() added
+- 2016-03-31  V0.7  MOS_WaitForCond() / MOS_WaitTimedForCond() added, documentation improved
 
 
 ## Documentation
@@ -22,17 +23,17 @@ Of course you could do the same with state machines but with MOS your code looks
 
 ### API Functions
 
-Function | Description
---------|------------
-MOS_Break(tcb) | Suspend task execution for one cycle. The task will be resumed with the next call of the loop function
-MOS_Continue(tcb) | Continue the task execution at the previous suspended program position
-MOS_Delay(tcb, msec) | Suspend task for the given amount of milliseconds (1..30000)
-MOS_DelaySec(tcb, sec) | Suspend task for the given amount of seconds (1..30000)
-MOS_WaitFor(tcb, flag) | Suspend task until the task is resumed by means of MOS_Signal()
-MOS_WaitTimedFor(tcb, flag, msec) | Suspend task until the task is resumed by means of MOS_Signal() or by means of the given timeout in milliseconds (1..30000)
-MOS_Signal(flag) | Resume the suspended task waiting on the given flag
-MOS_ResetTask(tcb) | Reset the calling task so that it starts from the beginning
-MOS_Call(task) | Execute the given task
+ - [MOS_Break(tcb)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_break)
+ - [MOS_Continue(tcb)](mos_api_docu.md#mos_continue)
+ - [MOS_Delay(tcb, msec)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_delay)
+ - [MOS_DelaySec(tcb, sec)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_delaysec)
+ - [MOS_WaitFor(tcb, flag)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_waitfor)
+ - [MOS_WaitTimedFor(tcb, flag, msec)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_waittimedfor)
+ - [MOS_WaitForCond(tcb cond)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_waitforcond)
+ - [MOS_WaitTimedForCond(tcb, cond, time)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_waittimedforcond)
+ - [MOS_Signal(flag)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_signal)
+ - [MOS_ResetTask(tcb)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_resettask)
+ - [MOS_Call(task)](https://github.com/joe7575/Arduino-MOS/blob/master/mos_api_docu.md#mos_call)
 
 
 ## Example
