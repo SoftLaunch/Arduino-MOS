@@ -239,7 +239,7 @@ bool myFlag;
 
 void func()
 {
-  MOS_Signal(flag);
+  MOS_Signal(myFlag);
 }
 void myTask(PTCB tcb)
 {
@@ -291,7 +291,7 @@ MOS_WaitFor
 ```C++
 void func()
 {
-  MOS_Signal(flag);
+  MOS_Signal(myFlag);
 }
 void myTask(PTCB tcb)
 {
@@ -319,7 +319,7 @@ void myTask(PTCB tcb)
 
 ##### Description
 
-Suspend task for the time the given binary condition is false.
+Suspend task for the time, the given binary condition is false.
 The condition will be cyclically checked. If the condition becomes true
 the suspended task will resume.
 
@@ -336,7 +336,7 @@ MOS_WaitForCond(tcb, a == b);
 | Parameter |Description  |
 |-----------|------------ |
 | tcb | Task control block, passed to the task as parameter (PTCB) |
-| condition | binary condition which becomes true or false |
+| condition | binary condition (result is true or false) |
 
 ##### Returns
 none
@@ -455,7 +455,7 @@ bool myFlag;
 
 void func()
 {
-  MOS_Signal(flag);
+  MOS_Signal(myFlag);
 }
 void myTask(PTCB tcb)
 {
@@ -501,9 +501,10 @@ none
 
 ##### Description
 
-Call the given task. If the task is not resumed, it will be executed.
-A MOS_Call() statement has to be inserted for each task in the system,
-so that the tasks can be executed.
+Call the given task from the loop() function.
+If the task is not resumed, it will be executed.
+A MOS_Call() statement has to be inserted in the loop() function
+for each task in the system, so that the tasks will be executed.
 
 ##### Syntax
 
