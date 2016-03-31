@@ -1,16 +1,16 @@
 # MOS API Documentation
 
 MOS is not a real operating system or scheduler. It only consists of a view macros to handle
-suspend and resume positions inside the task function.
+suspend and resume program positions inside the task function.
 To store the task position and the task related timer, only 4 bytes of RAM memory per task is needed.
-This allows a ultra lightweight cooperative multitasking on Ardunio devices with plenty of tasks
+This allows an ultra lightweight cooperative multitasking on Ardunio devices with plenty of tasks
 even on devices with less than 1 KByte RAM.
 
 
 ## How it works
 
-MOS uses a feature of the GNU Compiler which is called [Labels as Values](https://gcc.gnu.org/onlinedocs/gcc/Labels-as-Values.html)
-It allows a "goto" statement with a variable programm position:
+MOS uses a feature of the GNU Compiler which is called [Labels as Values](https://gcc.gnu.org/onlinedocs/gcc/Labels-as-Values.html).
+It allows a "goto" statement with a variable target programm position:
 ```C++
 void *ptr;
 /* ... */
@@ -33,6 +33,7 @@ for the next call of the task and returns (simplified principle):
                          LABEL_XY:
                          
 ```
+The complete functionality of MOS is based on this priciples.
 
 
 ## Reference
@@ -44,7 +45,6 @@ for the next call of the task and returns (simplified principle):
 
 Suspend task execution for one loop cycle. The task will be resumed with
 the next call of the loop function.
-
 <br>
 ##### Syntax
 
@@ -57,15 +57,12 @@ MOS_Break(tcb);
 | Parameter |Description  |
 |-----------|------------ |
 | tcb | Task control block, passed to the task as first parameter (PTCB) |
-
 <br>
 ##### Returns
 none
-
 <br>
 ##### See also
 MOS_Continue
-
 ------------------------------------------------
 
 ### MOS_Continue()
@@ -73,7 +70,6 @@ MOS_Continue
 ##### Description
 
 Continue the task execution at the previous suspended program position.
-
 <br>
 ##### Syntax
 
@@ -86,15 +82,12 @@ MOS_Continue(tcb);
 | Parameter |Description  |
 |-----------|------------ |
 | tcb | Task control block, passed to the task as parameter (PTCB) |
-
 <br>
 ##### Returns
 none
-
 <br>
 ##### See also
 MOS_Break
-
 <br>
 ##### Example
 
@@ -120,7 +113,6 @@ void LedTask(PTCB tcb)
 
 Suspend task for the given amount of time in milliseconds.
 After the time is elapsed, the task will be resumed.
-
 <br>
 ##### Syntax
 
@@ -133,15 +125,12 @@ MOS_Delay(tcb, time);
 | Parameter |Description  |
 |-----------|------------ |
 | tcb | Task control block, passed to the task as parameter (PTCB) - time: Time value in milliseconds (1..30000) |
-
 <br>
 ##### Returns
 none
-
 <br>
 ##### See also
 MOS_DelaySec
-
 <br>
 ##### Example
 
@@ -169,7 +158,6 @@ void LedTask(PTCB tcb)
 
 Suspend task for the given amount of time in seconds.
 After the time is elapsed, the task will be resumed.
-
 <br>
 ##### Syntax
 
@@ -182,15 +170,12 @@ MOS_DelaySec(tcb, time);
 | Parameter |Description  |
 |-----------|------------ |
 | tcb | Task control block, passed to the task as parameter (PTCB) - time: Time value in seconds (1..30000) |
-
 <br>
 ##### Returns
 none
-
 <br>
 ##### See also
 MOS_Delay
-
 <br>
 ##### Example
 
@@ -220,7 +205,6 @@ Suspend task until the given flag is set by means of MOS_Signal().
 With each call of MOS_WaitFor() a probably set flag will be cleared. If the
 flag wil be set by means of MOS_Signal() or directly (flag = true;) the already
 suspended task will resume.
-
 <br>
 ##### Syntax
 
@@ -233,15 +217,12 @@ MOS_WaitFor(tcb, flag);
 | Parameter |Description  |
 |-----------|------------ |
 | tcb | Task control block, passed to the task as parameter (PTCB) - flag: Boolean variable to signal the event (bool) |
-
 <br>
 ##### Returns
 none
-
 <br>
 ##### See also
 MOS_WaitTimedFor
-
 <br>
 ##### Example
 
@@ -275,7 +256,6 @@ the timeout period in milliseconds has elapsed.
 With each call of MOS_WaitFor() a probably set flag will be cleared. If the
 flag wil be set by means of MOS_Signal() or directly (flag = true;), or
 the timeout has elapsed, the suspended task will resume.
-
 <br>
 ##### Syntax
 
@@ -288,15 +268,12 @@ MOS_WaitTimedFor(tcb, flag, time);
 | Parameter |Description  |
 |-----------|------------ |
 | tcb | Task control block, passed to the task as parameter (PTCB) - flag: Boolean variable to signal the event (bool) - time: Timeout value in milliseconds (1..30000) |
-
 <br>
 ##### Returns
 none
-
 <br>
 ##### See also
 MOS_WaitFor
-
 <br>
 ##### Example
 
@@ -333,7 +310,6 @@ void myTask(PTCB tcb)
 Suspend task for the time the given binary condition is false.
 The condition will be cyclically checked. If the condition becomes true
 the suspended task will resume.
-
 <br>
 ##### Syntax
 
@@ -348,15 +324,12 @@ MOS_WaitForCond(tcb, a == b);
 | Parameter |Description  |
 |-----------|------------ |
 | tcb | Task control block, passed to the task as parameter (PTCB) - condition: binary condition which becomes true or false |
-
 <br>
 ##### Returns
 none
-
 <br>
 ##### See also
 MOS_WaitTimedForCond
-
 <br>
 ##### Example
 
@@ -385,7 +358,6 @@ Suspend task for the time the given binary condition is false or
 the timeout period in milliseconds has elapsed.
 The condition will be cyclically checked. If the condition becomes true
 or the timeout has elapsed, the suspended task will resume.
-
 <br>
 ##### Syntax
 
@@ -400,15 +372,12 @@ MOS_WaitTimedForCond(tcb, (a == b), 200);
 | Parameter |Description  |
 |-----------|------------ |
 | tcb | Task control block, passed to the task as parameter (PTCB) - condition: binary condition which becomes true or false - time: Timeout value in milliseconds (1..30000) |
-
 <br>
 ##### Returns
 none
-
 <br>
 ##### See also
 MOS_WaitTimedFor
-
 <br>
 ##### Example
 
@@ -443,7 +412,6 @@ void RxTask(PTCB tcb)
 With call of MOS_Signal(), a suspended task waiting on the given flag will
 resume. This function is "syntactical sugar".
 You could also write "flag = true;".
-
 <br>
 ##### Syntax
 
@@ -456,15 +424,12 @@ MOS_Signal(flag);
 | Parameter |Description  |
 |-----------|------------ |
 | flag | Boolean variable to signal the event (bool) |
-
 <br>
 ##### Returns
 none
-
 <br>
 ##### See also
 MOS_WaitFor
-
 <br>
 ##### Example
 
@@ -496,7 +461,6 @@ void myTask(PTCB tcb)
 Reset the task control block (tcb) and resume the task.
 With the next loop cycle the task will be restarted at the very beginning.
 That means, the code before the "while(1)" loop will be executed again.
-
 <br>
 ##### Syntax
 
@@ -509,11 +473,9 @@ MOS_ResetTask(tcb);
 | Parameter |Description  |
 |-----------|------------ |
 | tcb | Task control block, passed to the task as parameter (PTCB) |
-
 <br>
 ##### Returns
 none
-
 ------------------------------------------------
 
 ### MOS_Call()
@@ -523,7 +485,6 @@ none
 Call the given task. If the task is not resumed, it will be executed.
 A MOS_Call() statement has to be inserted for each task in the system,
 so that the tasks can be executed.
-
 <br>
 ##### Syntax
 
@@ -536,11 +497,9 @@ MOS_Call(task);
 | Parameter |Description  |
 |-----------|------------ |
 | task | The identifier of the task |
-
 <br>
 ##### Returns
 none
-
 <br>
 ##### Example
 
