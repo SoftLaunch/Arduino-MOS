@@ -10,7 +10,7 @@ even on devices with less than 1 KByte RAM.
 ## How it works
 
 MOS uses a feature of the GNU Compiler which is called [Labels as Values](https://gcc.gnu.org/onlinedocs/gcc/Labels-as-Values.html).
-It allows a "goto" statement with a variable target programm position:
+It allows a "goto" statement with a variable target program position:
 ```C++
 void *ptr;
 /* ... */
@@ -127,7 +127,8 @@ MOS_Delay(tcb, time);
 
 | Parameter |Description  |
 |-----------|------------ |
-| tcb | Task control block, passed to the task as parameter (PTCB) - time: Time value in milliseconds (1..30000) |
+| tcb | Task control block, passed to the task as parameter (PTCB) |
+| time | Time value in milliseconds (1..30000) |
 
 ##### Returns
 none
@@ -161,7 +162,7 @@ void LedTask(PTCB tcb)
 ##### Description
 
 Suspend task for the given amount of time in seconds.
-After the time is elapsed, the task will be resumed.
+After the time has elapsed, the task will be resumed.
 
 ##### Syntax
 
@@ -173,7 +174,8 @@ MOS_DelaySec(tcb, time);
 
 | Parameter |Description  |
 |-----------|------------ |
-| tcb | Task control block, passed to the task as parameter (PTCB) - time: Time value in seconds (1..30000) |
+| tcb | Task control block, passed to the task as parameter (PTCB) |
+| time | Time value in seconds (1..30000) |
 
 ##### Returns
 none
@@ -221,7 +223,8 @@ MOS_WaitFor(tcb, flag);
 
 | Parameter |Description  |
 |-----------|------------ |
-| tcb | Task control block, passed to the task as parameter (PTCB) - flag: Boolean variable to signal the event (bool) |
+| tcb | Task control block, passed to the task as parameter (PTCB) |
+| flag | Boolean variable to signal the event (bool) |
 
 ##### Returns
 none
@@ -273,7 +276,9 @@ MOS_WaitTimedFor(tcb, flag, time);
 
 | Parameter |Description  |
 |-----------|------------ |
-| tcb | Task control block, passed to the task as parameter (PTCB) - flag: Boolean variable to signal the event (bool) - time: Timeout value in milliseconds (1..30000) |
+| tcb | Task control block, passed to the task as parameter (PTCB) |
+| flag | Boolean variable to signal the event (bool) |
+| time | Timeout value in milliseconds (1..30000) |
 
 ##### Returns
 none
@@ -330,7 +335,8 @@ MOS_WaitForCond(tcb, a == b);
 
 | Parameter |Description  |
 |-----------|------------ |
-| tcb | Task control block, passed to the task as parameter (PTCB) - condition: binary condition which becomes true or false |
+| tcb | Task control block, passed to the task as parameter (PTCB) |
+| condition | binary condition which becomes true or false |
 
 ##### Returns
 none
@@ -379,7 +385,9 @@ MOS_WaitTimedForCond(tcb, (a == b), 200);
 
 | Parameter |Description  |
 |-----------|------------ |
-| tcb | Task control block, passed to the task as parameter (PTCB) - condition: binary condition which becomes true or false - time: Timeout value in milliseconds (1..30000) |
+| tcb | Task control block, passed to the task as parameter (PTCB) |
+| condition | binary condition which becomes true or false |
+| time | Timeout value in milliseconds (1..30000) |
 
 ##### Returns
 none

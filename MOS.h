@@ -165,7 +165,7 @@ typedef MOS_TCB_t* PTCB;
  
   Description:
     Suspend task for the given amount of time in seconds.
-    After the time is elapsed, the task will be resumed.
+    After the time has elapsed, the task will be resumed.
  
   Syntax:
     MOS_DelaySec(tcb, time);
