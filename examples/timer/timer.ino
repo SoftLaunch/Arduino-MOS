@@ -68,7 +68,7 @@ void setup()
   pinMode(13, OUTPUT);
   Serial.begin(115600);
   Serial.println(F("### MOS Timer Demo ###"));
-  Serial.println(F("Ouputs the current CPU time in minutes:seconds (approximately)"));
+  Serial.println(F("Ouputs the elapsed time in minutes:seconds (approximately)"));
   Serial.println("");
 }
 

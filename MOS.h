@@ -2,7 +2,7 @@
  * MOS - Macro based Operating System
  * A ultra lightweight cooperative multitasking scheduler for Arduino devices.
  *
- * V0.7 - 2016-03-30
+ * V0.7 - 2016-03-31
  *
  * Copyright (c) 2016 Joachim Stolberg. All rights reserved.
  *
@@ -227,7 +227,7 @@ typedef MOS_TCB_t* PTCB;
 
     void func()
     { 
-      MOS_Signal(flag);
+      MOS_Signal(myFlag);
     }
     void myTask(PTCB tcb) 
     {
@@ -272,7 +272,7 @@ typedef MOS_TCB_t* PTCB;
   Example:
     void func()
     { 
-      MOS_Signal(flag);
+      MOS_Signal(myFlag);
     }
     void myTask(PTCB tcb) 
     {
@@ -303,7 +303,7 @@ typedef MOS_TCB_t* PTCB;
     MOS_WaitForCond()
  
   Description:
-    Suspend task for the time the given binary condition is false.
+    Suspend task for the time, the given binary condition is false.
     The condition will be cyclically checked. If the condition becomes true
     the suspended task will resume. 
  
@@ -314,7 +314,7 @@ typedef MOS_TCB_t* PTCB;
   
   Parameters:
     - tcb: Task control block, passed to the task as parameter (PTCB)
-    - condition: binary condition which becomes true or false 
+    - condition: binary condition (result is true or false)
  
   Returns:
     none
@@ -418,7 +418,7 @@ typedef MOS_TCB_t* PTCB;
 
     void func()
     { 
-      MOS_Signal(flag);
+      MOS_Signal(myFlag);
     }
     void myTask(PTCB tcb) 
     {
@@ -471,9 +471,10 @@ typedef MOS_TCB_t* PTCB;
     MOS_Call()
  
   Description:
-    Call the given task. If the task is not resumed, it will be executed.
-    A MOS_Call() statement has to be inserted for each task in the system,
-    so that the tasks can be executed.
+    Call the given task from the loop() function.
+    If the task is not resumed, it will be executed.
+    A MOS_Call() statement has to be inserted in the loop() function
+    for each task in the system, so that the tasks will be executed.
  
   Syntax:
     MOS_Call(task);
