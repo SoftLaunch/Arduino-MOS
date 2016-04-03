@@ -66,7 +66,7 @@ void TimerTask(PTCB tcb)
 void setup() 
 {
   pinMode(13, OUTPUT);
-  Serial.begin(115600);
+  Serial.begin(115200);
   Serial.println(F("### MOS Timer Demo ###"));
   Serial.println(F("Ouputs the elapsed time in minutes:seconds (approximately)"));
   Serial.println("");

@@ -90,7 +90,7 @@ void ControlTask(PTCB tcb)
 void setup() 
 {
   pinMode(13, OUTPUT);
-  Serial.begin(115600);
+  Serial.begin(115200);
   Serial.println(F("### MOS Medium Demo ###"));
   Serial.println("");
 }

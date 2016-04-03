@@ -2,7 +2,7 @@
  * MOS - Macro based Operating System
  * A ultra lightweight cooperative multitasking scheduler for Arduino devices.
  *
- * V0.7 - 2016-03-31
+ * V0.7.1 - 2016-04-03
  *
  * Copyright (c) 2016 Joachim Stolberg. All rights reserved.
  *
@@ -41,11 +41,9 @@
 // MOS internal macros
 #define MOS_MERGE_(a,b)       a##b
 #define MOS_LABEL_(line)      MOS_MERGE_(LBL, line)
+#define MOS_SECS              ((uint16_t)(millis() >> 10))
 #define MOS_TIME_OVER_M(t)    ((uint16_t)(millis() - (t)) < 0x8000U)
-#define MOS_TIME_OVER_S(t)    ((uint16_t)((millis() >> 10) - (t)) < 0x8000U)
-#define MOS_BREAK(tcb)        { (tcb)->pv_jmp = &&MOS_LABEL_(__LINE__);   \
-                                return; }                                 \
-                                MOS_LABEL_(__LINE__):
+#define MOS_TIME_OVER_S(t)    ((uint16_t)(MOS_SECS - (t)) < 0x8000U)
 
 // Task Control Block
 typedef struct{
@@ -83,7 +81,9 @@ typedef MOS_TCB_t* PTCB;
   Example:
     -
 */
-#define MOS_Break(tcb)            { (tcb)->u16_time = millis(); MOS_BREAK(tcb); }
+#define MOS_Break(tcb)            { (tcb)->pv_jmp = &&MOS_LABEL_(__LINE__);   \
+                                    return; }                                 \
+                                    MOS_LABEL_(__LINE__):
 
 /*******************************************************************************
   @Function:
@@ -157,7 +157,7 @@ typedef MOS_TCB_t* PTCB;
 */
 #define MOS_Delay(tcb, time)      { (tcb)->u16_time = millis() + time;        \
                                      while(!MOS_TIME_OVER_M((tcb)->u16_time)) \
-                                     { MOS_BREAK(tcb); } }
+                                     { MOS_Break(tcb); } }
 
 /*******************************************************************************
   @Function:
@@ -195,9 +195,9 @@ typedef MOS_TCB_t* PTCB;
       }
     }
 */
-#define MOS_DelaySec(tcb, time)   { (tcb)->u16_time = (millis() / 1000) + time; \
+#define MOS_DelaySec(tcb, time)   { (tcb)->u16_time = MOS_SECS + time; \
                                     while(!MOS_TIME_OVER_S((tcb)->u16_time))   \
-                                    { MOS_BREAK(tcb); } }
+                                    { MOS_Break(tcb); } }
 
 /*******************************************************************************
   @Function:
@@ -242,7 +242,7 @@ typedef MOS_TCB_t* PTCB;
 */
 #define MOS_WaitFor(tcb, flag)    { flag = false;         \
                                     while(flag == false)  \
-                                    { MOS_BREAK(tcb); } }
+                                    { MOS_Break(tcb); } }
 
 /*******************************************************************************
   @Function:
@@ -296,7 +296,7 @@ typedef MOS_TCB_t* PTCB;
                                     flag = false;                                                 \
                                     (tcb)->u16_time = millis() + time;                            \
                                     while((flag == false) && (!MOS_TIME_OVER_M((tcb)->u16_time))) \
-                                    { MOS_BREAK(tcb); }}
+                                    { MOS_Break(tcb); }}
 
 /*******************************************************************************
   @Function:
@@ -338,7 +338,7 @@ typedef MOS_TCB_t* PTCB;
 */
 #define MOS_WaitForCond(tcb, condition)                                                              \
                                     { while((condition) == false)                                    \
-                                    { MOS_BREAK(tcb); } }
+                                    { MOS_Break(tcb); } }
 
 /*******************************************************************************
   @Function:
@@ -390,7 +390,7 @@ typedef MOS_TCB_t* PTCB;
 #define MOS_WaitTimedForCond(tcb, cond, time) {                                                     \
                                     (tcb)->u16_time = millis() + time;                              \
                                     while(((cond) == false) && (!MOS_TIME_OVER_M((tcb)->u16_time))) \
-                                    { MOS_BREAK(tcb); }}
+                                    { MOS_Break(tcb); }}
 
 /*******************************************************************************
   @Function:

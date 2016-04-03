@@ -1,5 +1,6 @@
 # Arduino-MOS
-[Arduino-MOS](https://github.com/joe7575/Arduino-MOS), a ultra lightweight cooperative multitasking scheduler for Arduino devices. Tested on Arduino UNO, DUE, ATtiny85, and ESP8266. 
+[Arduino-MOS](https://github.com/joe7575/Arduino-MOS), a ultra lightweight cooperative multitasking
+scheduler for Arduino devices. Tested on Arduino UNO, DUE, ATtiny85, and ESP8266. 
 
 
 ## History
@@ -10,6 +11,7 @@
 - 2016-03-27  V0.5  MOS_WaitTimedFor() added, timer demo added
 - 2016-03-28  V0.6  MOS_ResetTask() added
 - 2016-03-31  V0.7  MOS_WaitForCond() / MOS_WaitTimedForCond() added, documentation improved
+- 2016-04-03  V0.7.1 bugfix in MOS_DelaySec
 
 
 ## Documentation
@@ -31,7 +33,7 @@ and [How it works](mos_api_docu.md#how-it-works).
  - [MOS_DelaySec(tcb, sec)](mos_api_docu.md#mos_delaysec)
  - [MOS_WaitFor(tcb, flag)](mos_api_docu.md#mos_waitfor)
  - [MOS_WaitTimedFor(tcb, flag, msec)](mos_api_docu.md#mos_waittimedfor)
- - [MOS_WaitForCond(tcb cond)](mos_api_docu.md#mos_waitforcond)
+ - [MOS_WaitForCond(tcb, cond)](mos_api_docu.md#mos_waitforcond)
  - [MOS_WaitTimedForCond(tcb, cond, time)](mos_api_docu.md#mos_waittimedforcond)
  - [MOS_Signal(flag)](mos_api_docu.md#mos_signal)
  - [MOS_ResetTask(tcb)](mos_api_docu.md#mos_resettask)
@@ -51,7 +53,7 @@ int cnt = 0;
 void setup() 
 {
   pinMode(13, OUTPUT);
-  Serial.begin(115600);
+  Serial.begin(115200);
 }
 
 
@@ -103,8 +105,7 @@ Download the ZIP file and install it with the Library Manager.
 To use the MOS macros successful, some rules have to be fulfilled:
 * Implement each task as endless-loop ```while(1) {...}```
 * Start each task with ```MOS_Continue(tcb)```
-* Use ```MOS_Break(tcb)```, ```MOS_WaitFor(tcb, flag)```, and ```MOS_Delay(tcb, time)``` to suspend your task
-* Local variables lose their value with each call of MOS_Break/MOS_Delay/MOS_WaitFor. Therefore, use static or global variables inside tasks
+* Local variables lose their value with each call of MOS_Break/MOS_Delay/MOS_WaitFor/.... Therefore, use static or global variables inside tasks
 
 ## Questions/Feedback
 Questions about this project should be posted to joe.stolberg(at)gmx(dot)de
